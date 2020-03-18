@@ -8,7 +8,7 @@ import { State, initialState } from '../state';
 })
 export class StoreService {
 
-  private _state$ = new BehaviorSubject<State>(initialState); // インスタンス生成時の引数に値の初期値もしくは最新値を設定できる。subscribeかNextで流す、
+  private _state$ = new BehaviorSubject<State>(initialState); // インスタンス生成時の引数に値の初期値もしくは最新値を設定できる。subscribeかNextで値を流せる。
 
   update(fn: (state: State) => State) { // 関数を型指定。中の関数の引数の型とその戻り値の型を指定する必要がある。
     const current = this._state$.value;

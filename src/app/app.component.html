@@ -1,5 +1,9 @@
+<a routerLink='/'>Home</a>
+
 <app-user-list-filter
   [value]="userListFilter$ | async"
   (valueChange)="setUserListFilter($event)">
 </app-user-list-filter>
 <app-user-list [users]="users | async"></app-user-list>
+
+<router-outlet></router-outlet>

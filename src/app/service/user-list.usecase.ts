@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { StoreService } from './store.service';
 import { User } from '../user';
+import { UserApiService } from '../user-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,10 @@ export class UserListUsecase {
     return this.store.select(state => state.userListFilter);
   }
 
-  constructor(private http: HttpClient, private store: StoreService) { }
+  constructor(private userApi: UserApiService, private store: StoreService) { }
 
-  async fetchUsers() { // userの配列をフェッチする。ngOnInitで発火。
-    const users = await this.http // await Promise処理 →Promise処理結果が返ってくるまで一時停止する演算子。asyncで定義された関数の中でだけ使える
-      .get<User[]>('https://jsonplaceholder.typicode.com/users')
-      .toPromise();
+  async fetchUsers() { // userの配列をフェッチ(読み込む)する。ngOnInitで発火。
+    const users = await this.userApi.getAllUsers();
 
     this.store.update(state => ({
       ...state, /// spread operator 展開?反復?可能なオブジェクト(配列など)を文脈に合わせて拡張、全て展開してくれる
